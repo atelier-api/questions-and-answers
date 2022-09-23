@@ -1,0 +1,19 @@
+{
+  "name": "sdc_questions_and_answers",
+  "version": "1.0.0",
+  "description": "SDC Potato Questions and Answers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpp2204-sdc-potato/questions-and-answers.git"
+  },
+  "author": "Hasan Uchchas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rpp2204-sdc-potato/questions-and-answers/issues"
+  },
+  "homepage": "https://github.com/rpp2204-sdc-potato/questions-and-answers#readme"
+}
