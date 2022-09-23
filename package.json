@@ -4,7 +4,8 @@
   "description": "SDC Potato Questions and Answers",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start": "nodemon ./server/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/rpp2204-sdc-potato/questions-and-answers/issues"
   },
-  "homepage": "https://github.com/rpp2204-sdc-potato/questions-and-answers#readme"
+  "homepage": "https://github.com/rpp2204-sdc-potato/questions-and-answers#readme",
+  "devDependencies": {
+    "jest": "^29.0.3",
+    "supertest": "^6.2.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.20"
+  }
 }
