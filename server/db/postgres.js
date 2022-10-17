@@ -5,7 +5,7 @@
 // \dt -> List all tables
 // select * from TABLE_NAME;
 
-require("dotenv").config();
+require("dotenv").config({path: '../../.env'});
 const pgp = require('pg-promise')();
 
 const postgresDB = pgp({

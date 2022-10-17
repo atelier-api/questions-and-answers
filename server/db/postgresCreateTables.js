@@ -1,14 +1,6 @@
-require("dotenv").config();
-const pgp = require('pg-promise')();
+const postgresDB = require('../db/postgres.js');
 
-const postgresDB = pgp({
-  host: process.env.POSTGRES_HOST,
-  port: process.env.POSTGRES_PORT,
-  database: process.env.POSTGRES_DB,
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASS
-});
-
+// questions table
 postgresDB.query(
   `CREATE TABLE IF NOT EXISTS questions (
     id SERIAL PRIMARY KEY,
@@ -22,6 +14,7 @@ postgresDB.query(
   )`
 )
 
+// answers table
 postgresDB.query(
   `CREATE TABLE IF NOT EXISTS answers (
     id SERIAL PRIMARY KEY,
@@ -35,10 +28,11 @@ postgresDB.query(
   )`
 )
 
+// photos table
 postgresDB.query(
   `CREATE TABLE IF NOT EXISTS photos (
     ID SERIAL PRIMARY KEY,
     answer_id INTEGER,
-    url VARCHAR(100)
+    url TEXT
   )`
 );
