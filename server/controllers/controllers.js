@@ -2,10 +2,12 @@ const models = require('../models/models.js');
 
 exports.getQuestions = async (req, res) => {
   return promise = new Promise((resolve, reject) => {
-    let questionData;
-    let answerData;
+    console.log('req', req.query)
+    let productId = req.query.product_id;
+    let page = req.query.page || 1;
+    let count = req.query.count || 5;
 
-    models.chain(71699)
+    models.findQuestions(productId, page, count)
       .then(result => {
         resolve(res.send(result).status(200));
       })
@@ -100,3 +102,4 @@ exports.answerReport = (req, res) => {
       })
   })
 }
+
