@@ -32,6 +32,14 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
   controllers.addAnswer(req, res);
 });
 
+
+// POST /qa/questions
+// Adds a question for the given product
+// Status: 201 CREATED
+app.post('/qa/questions', (req, res) => {
+  controllers.addQuestion(req, res);
+});
+
 // PUT /qa/questions/:question_id/helpful
 // Updates a question to show it was found helpful
 // Status: 204 NO CONTENT
@@ -46,18 +54,11 @@ app.put('/qa/questions/:question_id/report', (req, res) => {
   controllers.questionReport(req, res);
 });
 
-// POST /qa/questions
-// Adds a question for the given product
-// Status: 201 CREATED
-app.post('/qa/questions', (req, res) => {
-  controllers.addQuestion(req, res);
-});
-
 // PUT /qa/answers/:answer_id/helpful
 // Updates an answer to show it was found helpful
 // Status: 204 NO CONTENT
-app.get('/qa/answers/:answer_id/helpful', (req, res) => {
-  contollers.answerHelpful(req, res);
+app.put('/qa/answers/:answer_id/helpful', (req, res) => {
+  controllers.answerHelpful(req, res);
 });
 
 // PUT /qa/answers/:answer_id/report
