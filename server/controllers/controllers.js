@@ -8,17 +8,17 @@ exports.getQuestions = async (req, res) => {
 
     models.findQuestions(productId, page, count)
       .then(result => {
-        resolve(res.send(result).status(200));
+        resolve(res.status(200).send(result));
       })
       .catch(err => {
-        reject(console.log('Error in findQuestions', err));
-      })
+        reject(res.status(500).send('Error in findQuestions', err));
+      });
   })
 }
 
 exports.getAnswers = (req, res) => {
   return promise = new Promise((resolve, reject) => {
-    let questionId = req.url.split('/')[3];
+    let questionId = req.params.question_id;
     let page = req.query.page || 1;
     let count = req.query.count || 5;
     let returnObj = {
@@ -58,7 +58,13 @@ exports.addQuestion = (req, res) => {
 
 exports.addAnswer = (req, res) => {
   return promise = new Promise((resolve, reject) => {
-    models.createAnswer(71699)
+    let question_id = req.query.question_id;
+    let body = req.body.body;
+    let name = req.body.name;
+    let email = req.body.email;
+    let photos = req.body.photos;
+
+    models.createAnswer(question_id, body, name, email, photos)
       .then(result => {
         resolve(res.send(result).status(201));
       })
@@ -82,7 +88,7 @@ exports.questionHelpful = (req, res) => {
 
 exports.questionReport = (req, res) => {
   return promise = new Promise((resolve, reject) => {
-    models.updateQuestionReport(req.params.answer_id)
+    models.updateQuestionReport(req.params.question_id)
       .then(result => {
         resolve(res.status(204).send());
       })

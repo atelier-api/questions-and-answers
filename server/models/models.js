@@ -3,29 +3,31 @@
 const db = require('../db/postgres.js');
 
 exports.findQuestions = (productId, page, count) => {
-  let questionQuery = `SELECT
-    id AS "question_id",
-    question_body AS "question_body",
-    question_date AS "question_date",
-    asker_name,
-    question_helpfulness AS "question_helpfulness",
-    reported
+  let questionQuery = `
+    SELECT
+      id AS "question_id",
+      question_body AS "question_body",
+      to_timestamp((to_number(question_date, '9999999999999'))/1000) AS "question_date",
+      asker_name,
+      question_helpfulness AS "question_helpfulness",
+      reported
     FROM questions
-    WHERE product_id=$1 AND reported=false
+    WHERE product_id = $1 AND reported = false
     LIMIT $2 OFFSET $3`;
 
-  let answerQuery = `SELECT
-    id AS id,
-    answer_body AS answer_body,
-    answer_date AS answer_date,
-    answerer_name AS answerer_name,
-    answer_helpfulness AS answer_helpfulness
+  let answerQuery = `
+    SELECT
+      id AS id,
+      answer_body AS body,
+      to_timestamp((to_number(answer_date, '9999999999999'))/1000) AS date,
+      answerer_name AS answerer_name,
+      answer_helpfulness AS helpfulness
     FROM answers
     WHERE question_id=$1`;
 
-  let photoQuery = `SELECT
-    id AS id,
-    url AS url
+  let photoQuery = `
+    SELECT
+      url
     FROM photos
     WHERE answer_id=$1`;
 
@@ -40,26 +42,34 @@ exports.findQuestions = (productId, page, count) => {
     await t.any(questionQuery, [productId, count, (page - 1) * count])
       .then(async questionData => {
         const questions = questionData.map(async question => {
-
+          question.answers = {};
           // Query to get all answers for each question
           await t.any(answerQuery, [question.question_id])
-          .then(async result => {
-            let answerData = {};
-            const answers = result.map(async answer => {
+            .then(async result => {
+              let answerData = {};
+              const answers = result.map(async answer => {
                 answerData[answer.id] = answer;
                 question.answers = answerData;
 
                 // Query to get all photo for each answer
                 await t.any(photoQuery, [answer.id])
                   .then(result => {
-                    answer.photos = result;
+                    console.log('result', result);
+                    if (result.length !== 0) {
+                      answer.photos = [];
+                      result.forEach(photo => {
+                        answer.photos.push(photo.url);
+                      })
+                    } else {
+                      answer.photos = result;
+                    }
+                    //answer.photos = result;
                   })
               })
               await t.batch(answers);
             })
         })
         await t.batch(questions);
-
         resultObj.results = questionData;
       })
       return resultObj;
@@ -106,8 +116,33 @@ exports.addQuestion = (body, name, email, product_id) => {
   return db.query(queryStr, [product_id, body, name, email]);
 };
 
-exports.addAnswer = (productId) => {
-  return db.query(`SELECT * from questions where product_id=${productId}`);
+exports.addAnswer = async (question_id, body, name, email, photos) => {
+  /* let answerQueryStr = `
+    INSERT INTO answers
+    (
+      question_id,
+      answer_body,
+      answer_date,
+      answer_name,
+      answerer_email,
+      answer_reported,
+      answer_helpfulness
+    )
+    VALUES ($1, $2, now(), $3, $4, false, 0)`;
+
+  let photoQueryStr = `
+    INSERT INTO photos
+    (
+      url
+    )
+    VALUES ($1)`;
+
+  return db.task(async t => {
+    await db.query(queryStr, [question_id, body, name, email]);
+      .then(result => {
+        console.log('result', result);
+      })
+  }) */
 };
 
 exports.updateQuestionHelpful = (questionId) => {
@@ -125,8 +160,7 @@ exports.updateQuestionReport = (questionId) => {
     SET reported = TRUE
     WHERE id = $1`;
 
-  const hello = db.query(queryStr, [questionId]);
-  return hello;
+  return db.query(queryStr, [questionId]);
 };
 
 exports.updateAnswerHelpful = (answerId) => {

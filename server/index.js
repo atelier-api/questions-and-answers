@@ -6,7 +6,7 @@ const path = require("path");
 const controllers = require('./controllers/controllers.js');
 
 app.get('/qa', (req, res) => {
-  res.status(200).send('Hello World!');
+  res.status(200).send('Hello from QnA server!');
 });
 
 // GET /qa/questions/:question_id/answers
