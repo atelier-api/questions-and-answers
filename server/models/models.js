@@ -23,7 +23,7 @@ exports.findQuestions = (productId, page, count) => {
       answerer_name AS answerer_name,
       answer_helpfulness AS helpfulness
     FROM answers
-    WHERE question_id=$1`;
+    WHERE question_id=$1 AND answer_reported = false`;
 
   let photoQuery = `
     SELECT
@@ -54,7 +54,6 @@ exports.findQuestions = (productId, page, count) => {
                 // Query to get all photo for each answer
                 await t.any(photoQuery, [answer.id])
                   .then(result => {
-                    console.log('result', result);
                     if (result.length !== 0) {
                       answer.photos = [];
                       result.forEach(photo => {
@@ -63,7 +62,6 @@ exports.findQuestions = (productId, page, count) => {
                     } else {
                       answer.photos = result;
                     }
-                    //answer.photos = result;
                   })
               })
               await t.batch(answers);
@@ -80,7 +78,7 @@ exports.findAnswers = (questionId, page, count) => {
   let queryStr = `SELECT
     id AS "answer_id",
     answer_body AS "body",
-    answer_date AS "date",
+    to_timestamp((to_number(answer_date, '9999999999999'))/1000) AS date,
     answerer_name AS "answerer_name",
     answer_helpfulness AS "helpfulness",
     (
@@ -99,7 +97,7 @@ exports.findAnswers = (questionId, page, count) => {
   return db.query(queryStr, [questionId, count, (page - 1) * count]);
 };
 
-exports.addQuestion = (body, name, email, product_id) => {
+exports.createQuestion = (body, name, email, product_id) => {
   let queryStr = `
     INSERT INTO questions
     (
@@ -111,24 +109,24 @@ exports.addQuestion = (body, name, email, product_id) => {
       reported,
       question_helpfulness
     )
-    VALUES ($1, $2, now(), $3, $4, false, 0)`;
+    VALUES ($1, $2, (extract(epoch from now())*1000), $3, $4, false, 0)`;
 
   return db.query(queryStr, [product_id, body, name, email]);
 };
 
-exports.addAnswer = async (question_id, body, name, email, photos) => {
-  /* let answerQueryStr = `
+exports.createAnswer = async (question_id, body, name, email, photos) => {
+  let answerQueryStr = `
     INSERT INTO answers
     (
       question_id,
       answer_body,
       answer_date,
-      answer_name,
+      answerer_name,
       answerer_email,
       answer_reported,
       answer_helpfulness
     )
-    VALUES ($1, $2, now(), $3, $4, false, 0)`;
+    VALUES ($1, $2, (extract(epoch from now())*1000), $3, $4, false, 0)`;
 
   let photoQueryStr = `
     INSERT INTO photos
@@ -138,11 +136,15 @@ exports.addAnswer = async (question_id, body, name, email, photos) => {
     VALUES ($1)`;
 
   return db.task(async t => {
-    await db.query(queryStr, [question_id, body, name, email]);
+    await db.query(answerQueryStr, [question_id, body, name, email])
       .then(result => {
         console.log('result', result);
       })
-  }) */
+      .catch(err => {
+        console.log('Error in createAnswer', err);
+
+      })
+  })
 };
 
 exports.updateQuestionHelpful = (questionId) => {

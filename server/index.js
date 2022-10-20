@@ -5,6 +5,8 @@ const port = process.env.PORT;
 const path = require("path");
 const controllers = require('./controllers/controllers.js');
 
+app.use(express.json())
+
 app.get('/qa', (req, res) => {
   res.status(200).send('Hello from QnA server!');
 });

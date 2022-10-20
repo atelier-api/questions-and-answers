@@ -31,10 +31,10 @@ exports.getAnswers = (req, res) => {
     models.findAnswers(questionId, page, count)
       .then(result => {
         returnObj.results = result;
-        resolve(res.send(returnObj).status(200));
+        resolve(res.status(200).send(returnObj));
       })
       .catch(err => {
-        reject(console.log('Error in findAnswers', err));
+        reject(res.status(500).send('Error in findAnswers', err));
       })
   })
 }
@@ -48,17 +48,17 @@ exports.addQuestion = (req, res) => {
 
     models.createQuestion(body, name, email, product_id)
       .then(result => {
-        resolve(res.status(201));
+        resolve(res.status(201).send(result));
       })
       .catch(err => {
-        reject(console.log('Error in addQuestion', err));
+        reject(res.status(500).send('Error in createQuestion'));
       })
   })
 }
 
 exports.addAnswer = (req, res) => {
   return promise = new Promise((resolve, reject) => {
-    let question_id = req.query.question_id;
+    let question_id = req.params.question_id;
     let body = req.body.body;
     let name = req.body.name;
     let email = req.body.email;
@@ -66,10 +66,10 @@ exports.addAnswer = (req, res) => {
 
     models.createAnswer(question_id, body, name, email, photos)
       .then(result => {
-        resolve(res.send(result).status(201));
+        resolve(res.status(201).send(result));
       })
       .catch(err => {
-        reject(console.log('Error in addAnswer', err));
+        reject(res.status(500).send('Error in createAnswer'));
       })
   })
 }
