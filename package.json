@@ -4,7 +4,7 @@
   "description": "SDC Potato Questions and Answers",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "start": "nodemon ./server/index.js",
     "c-pdb": "psql -d postgres -U me"
   },
