@@ -1,0 +1,1 @@
+ssh -i "/Users/uchchas/Documents/hackreactor/sdc/questions-and-answers/mongodb.pem" ubuntu@ec2-54-87-241-247.compute-1.amazonaws.com

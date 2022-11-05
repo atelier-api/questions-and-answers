@@ -1,0 +1,1 @@
+ssh -i "/Users/uchchas/Documents/hackreactor/sdc/questions-and-answers/sdc_server.pem" ubuntu@ec2-54-152-214-74.compute-1.amazonaws.com
