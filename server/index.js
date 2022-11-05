@@ -7,6 +7,10 @@ const controllers = require('./controllers/controllers.js');
 
 app.use(express.json())
 
+app.get('/loaderio-a0bff481f27f27f75e015fcd592c6b0c.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, '../loaderio.txt'));
+});
+
 app.get('/qa', (req, res) => {
   res.status(200).send('Hello from QnA server!');
 });
@@ -75,3 +79,4 @@ app.listen(port, () => {
 });
 
 module.exports = app;
+

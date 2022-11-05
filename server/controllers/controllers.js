@@ -11,7 +11,7 @@ exports.getQuestions = async (req, res) => {
         resolve(res.status(200).send(result));
       })
       .catch(err => {
-        reject(res.status(500).send('Error in findQuestions', err));
+        reject(res.status(500).send('Error in findQuestions'));
       });
   })
 }
@@ -34,7 +34,7 @@ exports.getAnswers = (req, res) => {
         resolve(res.status(200).send(returnObj));
       })
       .catch(err => {
-        reject(res.status(500).send('Error in findAnswers', err));
+        reject(res.status(500).send('Error in findAnswers'));
       })
   })
 }

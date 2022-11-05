@@ -3,3 +3,4 @@ node_modules
 /server/db/data
 *.csv
 coverage/
+*.pem

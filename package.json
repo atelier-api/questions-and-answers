@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "start": "nodemon ./server/index.js",
+    "start": "nodemon -r newrelic ./server/index.js",
     "c-pdb": "psql -d postgres -U me"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "express": "^4.18.1",
     "mongodb": "^4.10.0",
     "mongoose": "^6.6.1",
+    "newrelic": "^9.5.0",
     "nodemon": "^2.0.20",
     "pg": "^8.8.0",
     "pg-promise": "^10.12.0",

@@ -5,6 +5,9 @@
 // \dt -> List all tables
 // select * from TABLE_NAME;
 
+// ON EC2
+// sudo -u postgres psql
+
 require("dotenv").config({path: '../../.env'});
 const pgp = require('pg-promise')();
 

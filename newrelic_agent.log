@@ -1,0 +1,12 @@
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:44.062Z","msg":"Using New Relic for Node.js. Agent version: 9.5.0; Node version: v16.15.1."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:44.168Z","msg":"Using LegacyContextManager"}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:44.171Z","msg":"Adding destroy hook to clean up unresolved promises.","component":"async_hooks"}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:44.189Z","msg":"Agent state changed from stopped to starting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:44.200Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:44.200Z","msg":"Agent state changed from starting to connecting."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:46.341Z","msg":"Agent state changed from connecting to connected."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:46.341Z","msg":"Connected to collector-010.newrelic.com:443 with agent run ID Bd_buRadtwDqADhAzEv9Qn9jZqCkAAgBAAAnIQEAAKFLAgRL_UMdAwAFOS41LjAAGEhhc2Fucy1NYWNCb29rLVByby5sb2NhbAADU0RD.","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:46.341Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/3686604/applications/1274888989","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:46.343Z","msg":"Valid event_harvest_config received. Updating harvest cycles. {\"report_period_ms\":5000,\"harvest_limits\":{\"error_event_data\":8,\"log_event_data\":833,\"analytic_event_data\":833,\"custom_event_data\":250}}"}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:46.352Z","msg":"Agent state changed from connected to started."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Hasans-MacBook-Pro.local","pid":41291,"time":"2022-11-05T17:41:47.354Z","msg":"Starting initial 1000ms harvest."}
