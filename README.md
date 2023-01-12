@@ -1,4 +1,4 @@
-# 👋 Welcome to `Atelier API - Questions & Answers`
+# 👋 Welcome to `Atelier API - Q&A`
 
 **_A scalable, optimized microservice providing questions and answers feature to an e-commerce website._**
 
